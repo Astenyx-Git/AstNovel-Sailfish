@@ -44,6 +44,9 @@ public:
     Q_INVOKABLE bool removeCharacterImage(const QString &bookId, const QString &characterId, int index);
     // Pre-baked rounded square avatar thumbnail for fast display
     Q_INVOKABLE QString avatarThumbPath(const QString &bookId, const QString &characterId, int size);
+    // Save a grabbed frame (cover thumbnail) to the cache dir; returns the
+    // path or "" — the cover window cannot use itemgrabber:// URLs directly
+    Q_INVOKABLE QString saveCoverFrame(const QImage &img, const QString &name);
 
     // Editor support: CJK word count + crash-recovery autosave
     Q_INVOKABLE int countWords(const QString &text) const;

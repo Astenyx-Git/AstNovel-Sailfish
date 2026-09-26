@@ -549,6 +549,17 @@ QString AstnStore::avatarThumbPath(const QString &bookId, const QString &charact
     return path;
 }
 
+QString AstnStore::saveCoverFrame(const QImage &img, const QString &name)
+{
+    if (img.isNull())
+        return QString();
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QDir().mkpath(dir);
+    const QString path = dir + "/" + name;
+    img.save(path, "PNG");
+    return path;
+}
+
 int AstnStore::countWords(const QString &text) const
 {
     return astnCountWords(text);
