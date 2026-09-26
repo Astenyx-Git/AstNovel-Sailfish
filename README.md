@@ -24,7 +24,6 @@ AstNovel-Sailfish/
 │   ├── qml/styles/             # design tokens singleton (AstnStyle)
 │   ├── rpm/                    # RPM spec
 │   └── harbour-astnovel.pro
-├── app/, harbour/              # early scaffolding, kept for reference only
 └── README.md
 ```
 
