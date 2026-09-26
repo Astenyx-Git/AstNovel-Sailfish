@@ -23,9 +23,8 @@ AstNovel-Sailfish/
 │   ├── qml/components/         # Apple-style widgets, cards, blur backdrop
 │   ├── qml/styles/             # design tokens singleton (AstnStyle)
 │   ├── rpm/                    # RPM spec
-│   └── harbour-astn.pro
+│   └── harbour-astnovel.pro
 ├── app/, harbour/              # early scaffolding, kept for reference only
-├── BUILD_INSTRUCTIONS.md, QUICKSTART.md, ...   # porting notes
 └── README.md
 ```
 
