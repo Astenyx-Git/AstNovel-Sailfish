@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=AstNovel
+Name[zh_CN]=小说空间
+Icon=harbour-astnovel
+Exec=harbour-astnovel
+X-Nemo-Application-Type=silica-qt5

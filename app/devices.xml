@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<devices>
+    <host name="Astenyx"/>
+    <engine name="Sailfish SDK Build Engine" type="vbox">
+        <subnet>10.220.220</subnet>
+    </engine>
+    <device name="Sailfish OS Emulator 5.1.0.11" type="vbox">
+        <index>1</index>
+        <subnet>10.220.220</subnet>
+        <sshkeypath>ssh/private_keys/sdk</sshkeypath>
+        <mac>08:00:5A:11:00:01</mac>
+        <username>defaultuser</username>
+    </device>
+</devices>

@@ -1,0 +1,23 @@
+# Qt Creator shadow builds
+build-*/
+
+# qmake / compiler artifacts
+Makefile
+Makefile.*
+*.o
+*.obj
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.pro.user*
+.qtc_clangd/
+compile_commands.json
+
+# RPM build outputs
+RPMS/
+*.rpm
+
+# Local helper scripts / secrets
+*.log
+Thumbs.db
+Desktop.ini
