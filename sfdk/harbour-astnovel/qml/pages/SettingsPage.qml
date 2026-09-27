@@ -151,8 +151,18 @@ Page {
                             ]
 
                             delegate: Item {
+                                id: langRow
                                 width: langColumn.width
                                 height: 52
+
+                                Rectangle {
+                                    anchors.fill: parent
+                                    color: AstnStyle.cPrimary
+                                    opacity: langMouse.pressed ? 0.08 : 0
+                                    Behavior on opacity {
+                                        NumberAnimation { duration: 120 }
+                                    }
+                                }
 
                                 Label {
                                     anchors {
@@ -165,17 +175,40 @@ Page {
                                     font.pixelSize: AstnStyle.typeBody
                                 }
 
-                                Image {
+                                Rectangle {
+                                    id: radio
+                                    property bool selected: store.uiLanguage === modelData.key
                                     anchors {
                                         right: parent.right
                                         rightMargin: Theme.paddingLarge
                                         verticalCenter: parent.verticalCenter
                                     }
-                                    source: "image://theme/icon-m-acknowledge"
-                                    visible: store.uiLanguage === modelData.key
+                                    width: 22
+                                    height: 22
+                                    radius: 11
+                                    color: "transparent"
+                                    border.color: selected ? AstnStyle.cPrimary : AstnStyle.cTextTertiary
+                                    border.width: 1.5
+                                    Behavior on border.color {
+                                        ColorAnimation { duration: 150 }
+                                    }
+
+                                    Rectangle {
+                                        anchors.centerIn: parent
+                                        width: 12
+                                        height: 12
+                                        radius: 6
+                                        color: AstnStyle.cPrimary
+                                        visible: radio.selected
+                                        scale: radio.selected ? 1.0 : 0.1
+                                        Behavior on scale {
+                                            NumberAnimation { duration: 160; easing.type: Easing.OutCubic }
+                                        }
+                                    }
                                 }
 
                                 MouseArea {
+                                    id: langMouse
                                     anchors.fill: parent
                                     onClicked: store.setUiLanguage(modelData.key)
                                 }

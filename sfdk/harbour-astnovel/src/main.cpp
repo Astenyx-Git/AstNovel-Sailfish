@@ -31,32 +31,52 @@ static QString resolveUiLanguage()
     return QStringLiteral("en");
 }
 
-// Install the QTranslator for the resolved language; returns the code so
-// the UI can tell whether the persisted preference is already applied.
-static QString installUiTranslator(QGuiApplication *app)
+// Swap the active translator for the resolved language. Removing and
+// installing translators makes Qt deliver LanguageChange events, which the
+// QML engine uses to re-evaluate every qsTr() binding — i.e. live
+// switching without a restart. Chinese needs no translator (source lang).
+static QString applyLanguage(QGuiApplication *app, QTranslator **active)
 {
+    if (*active) {
+        app->removeTranslator(*active);
+        delete *active;
+        *active = 0;
+    }
+
     const QString code = resolveUiLanguage();
     if (code == QLatin1String("zh"))
-        return code;                                 // source language
+        return code;
 
     QTranslator *tr = new QTranslator(app);
     if (tr->load(QStringLiteral("harbour-astnovel_") + code,
-                 QStringLiteral("/usr/share/harbour-astnovel/translations")))
+                 QStringLiteral("/usr/share/harbour-astnovel/translations"))) {
         app->installTranslator(tr);
-    else
+        *active = tr;
+    } else {
         delete tr;   // fall back to the Chinese source strings
+    }
     return code;
 }
 
 int main(int argc, char *argv[])
 {
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    const QString uiLang = installUiTranslator(app.data());
+    QTranslator *activeTranslator = 0;
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     AstnStore store;
+    const QString uiLang = applyLanguage(app.data(), &activeTranslator);
     view->rootContext()->setContextProperty("store", &store);
     view->rootContext()->setContextProperty("uiLangApplied", uiLang);
+
+    // Live switch: the settings page persists the preference and emits
+    // uiLanguageChanged; swap translators and refresh uiLangApplied so the
+    // "needs restart" hint resolves immediately.
+    QObject::connect(&store, &AstnStore::uiLanguageChanged, app.data(),
+                     [&app, &activeTranslator, &view]() {
+        const QString code = applyLanguage(app.data(), &activeTranslator);
+        view->rootContext()->setContextProperty("uiLangApplied", code);
+    });
 
     view->setSource(SailfishApp::pathTo("qml/main.qml"));
     view->show();
