@@ -116,6 +116,81 @@ Page {
                 }
             }
 
+            // Language group card
+            Column {
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                x: Theme.horizontalPageMargin
+                spacing: Theme.paddingSmall
+
+                Label {
+                    width: parent.width
+                    text: qsTr("语言")
+                    color: AstnStyle.cTextTertiary
+                    font.pixelSize: AstnStyle.typeCaption
+                    font.letterSpacing: 1.0
+                }
+
+                Rectangle {
+                    width: parent.width
+                    radius: AstnStyle.radiusCard
+                    color: AstnStyle.cSurface
+
+                    Column {
+                        width: parent.width
+
+                        Repeater {
+                            model: [
+                                { key: "",   name: qsTr("跟随系统") },
+                                { key: "zh", name: "简体中文" },
+                                { key: "en", name: "English" },
+                                { key: "de", name: "Deutsch" },
+                                { key: "ru", name: "Русский" },
+                                { key: "fi", name: "Suomi" }
+                            ]
+
+                            delegate: Item {
+                                width: parent.width
+                                height: 52
+
+                                Label {
+                                    anchors {
+                                        left: parent.left
+                                        leftMargin: Theme.paddingLarge
+                                        verticalCenter: parent.verticalCenter
+                                    }
+                                    text: modelData.name
+                                    color: AstnStyle.cTextPrimary
+                                    font.pixelSize: AstnStyle.typeBody
+                                }
+
+                                Image {
+                                    anchors {
+                                        right: parent.right
+                                        rightMargin: Theme.paddingLarge
+                                        verticalCenter: parent.verticalCenter
+                                    }
+                                    source: "image://theme/icon-m-acknowledge"
+                                    visible: store.uiLanguage() === modelData.key
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: store.setUiLanguage(modelData.key)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Label {
+                    width: parent.width
+                    text: qsTr("重启应用后生效")
+                    visible: store.uiLanguage() !== uiLangApplied
+                    color: AstnStyle.cPrimary
+                    font.pixelSize: AstnStyle.typeCaption
+                }
+            }
+
             // About group card
             Column {
                 width: parent.width - 2 * Theme.horizontalPageMargin

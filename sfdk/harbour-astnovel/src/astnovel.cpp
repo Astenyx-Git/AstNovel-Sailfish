@@ -13,6 +13,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QRegularExpression>
+#include <QSettings>
 #include <QStandardPaths>
 #include <QTime>
 #include <QUrl>
@@ -707,6 +708,20 @@ QStringList AstnStore::worldFields(const QString &category)
         return QStringList() << "组织名称" << "组织类型" << "层级结构" << "权力分布"
                              << "核心价值观" << "与其他组织关系" << "备注";
     return QStringList() << "条目标题" << "详细描述" << "备注";
+}
+
+// --- UI language preference (persisted in ~/.config) -----------------------
+QString AstnStore::uiLanguage() const
+{
+    QSettings s(QStringLiteral("harbour-astnovel"), QStringLiteral("harbour-astnovel"));
+    return s.value(QStringLiteral("ui/language")).toString();
+}
+
+void AstnStore::setUiLanguage(const QString &lang)
+{
+    QSettings s(QStringLiteral("harbour-astnovel"), QStringLiteral("harbour-astnovel"));
+    s.setValue(QStringLiteral("ui/language"), lang);
+    s.sync();
 }
 
 static QString worldTitleFromFields(const QVariantMap &fields)

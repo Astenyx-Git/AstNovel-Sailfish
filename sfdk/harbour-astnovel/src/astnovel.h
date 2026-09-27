@@ -48,6 +48,11 @@ public:
     // path or "" — the cover window cannot use itemgrabber:// URLs directly
     Q_INVOKABLE QString saveCoverFrame(const QImage &img, const QString &name);
 
+    // UI language preference ("", "en", "de", "ru", "fi", "zh"); ""
+    // means "follow the system locale" (see main.cpp)
+    Q_INVOKABLE QString uiLanguage() const;
+    Q_INVOKABLE void setUiLanguage(const QString &lang);
+
     // Editor support: CJK word count + crash-recovery autosave
     Q_INVOKABLE int countWords(const QString &text) const;
     Q_INVOKABLE void saveAutosave(const QString &bookId, const QString &chapterId, const QString &content);

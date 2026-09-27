@@ -682,6 +682,18 @@
         <source>AstNovel for Sailfish OS · 版本 4.50.Ast.3</source>
         <translation>AstNovel Sailfish OS:lle · Versio 4.50.Ast.3</translation>
     </message>
+    <message>
+        <source>语言</source>
+        <translation>Kieli</translation>
+    </message>
+    <message>
+        <source>跟随系统</source>
+        <translation>Systemin mukainen</translation>
+    </message>
+    <message>
+        <source>重启应用后生效</source>
+        <translation>Käynnistä sovellus uudelleen</translation>
+    </message>
 </context>
 <context>
     <name>WorldSettingsPage</name>

@@ -205,3 +205,6 @@ AstnStyle	与其他组织关系	Related organisations	Verwandte Organisationen	�
 AstnStyle	条目标题	Entry title	Eintragstitel	Название записи	Merkinnän otsikko
 AstnStyle	详细描述	Detailed description	Detaillierte Beschreibung	Подробное описание	Yksityiskohtainen kuvaus
 AstnStyle	备注	Notes	Notizen	Заметки	Muistiinpanot
+SettingsPage	语言	Language	Sprache	Язык	Kieli
+SettingsPage	跟随系统	System default	Systemstandard	Как в системе	Systemin mukainen
+SettingsPage	重启应用后生效	Restart the app to apply	Zum Anwenden neu starten	Перезапустите приложение	Käynnistä sovellus uudelleen
