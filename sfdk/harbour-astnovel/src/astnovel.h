@@ -10,6 +10,10 @@
 class AstnStore : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString uiLanguage READ uiLanguage WRITE setUiLanguage NOTIFY uiLanguageChanged)
+
+signals:
+    void uiLanguageChanged();
 
 public:
     explicit AstnStore(QObject *parent = 0);

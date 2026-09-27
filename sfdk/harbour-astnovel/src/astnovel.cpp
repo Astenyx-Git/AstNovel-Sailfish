@@ -722,6 +722,7 @@ void AstnStore::setUiLanguage(const QString &lang)
     QSettings s(QStringLiteral("harbour-astnovel"), QStringLiteral("harbour-astnovel"));
     s.setValue(QStringLiteral("ui/language"), lang);
     s.sync();
+    emit uiLanguageChanged();
 }
 
 static QString worldTitleFromFields(const QVariantMap &fields)

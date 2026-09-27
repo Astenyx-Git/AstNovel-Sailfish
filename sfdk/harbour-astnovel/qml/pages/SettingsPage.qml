@@ -132,10 +132,12 @@ Page {
 
                 Rectangle {
                     width: parent.width
+                    height: langColumn.height
                     radius: AstnStyle.radiusCard
                     color: AstnStyle.cSurface
 
                     Column {
+                        id: langColumn
                         width: parent.width
 
                         Repeater {
@@ -149,7 +151,7 @@ Page {
                             ]
 
                             delegate: Item {
-                                width: parent.width
+                                width: langColumn.width
                                 height: 52
 
                                 Label {
@@ -170,7 +172,7 @@ Page {
                                         verticalCenter: parent.verticalCenter
                                     }
                                     source: "image://theme/icon-m-acknowledge"
-                                    visible: store.uiLanguage() === modelData.key
+                                    visible: store.uiLanguage === modelData.key
                                 }
 
                                 MouseArea {
@@ -185,7 +187,7 @@ Page {
                 Label {
                     width: parent.width
                     text: qsTr("重启应用后生效")
-                    visible: store.uiLanguage() !== uiLangApplied
+                    visible: store.uiLanguage !== uiLangApplied
                     color: AstnStyle.cPrimary
                     font.pixelSize: AstnStyle.typeCaption
                 }
