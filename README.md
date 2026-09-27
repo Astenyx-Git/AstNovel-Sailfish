@@ -14,6 +14,8 @@ A novel-writing application for Sailfish OS, ported from the original HarmonyOS 
 - **Outline** - volume / chapter / section tree with links to chapters, characters and world entries
 - **Home-screen cover** - shows a live thumbnail of the current page; falls back to a solid-colour card with the app icon when no frame is available
 - **Export** - TXT (Markdown stripped), Markdown, or `.astn` v2.0, to a user-chosen folder
+- **Interface languages** - Simplified Chinese source with English (default), Deutsch, Русский and Suomi; switch instantly under *Settings → Language*, or follow the system language
+- **Dark mode** - light/dark palettes styled after iOS; the choice is persisted and survives restarts
 - **Fully offline** - no network permission, no network calls; all data stays on the device
 
 `.astn` v2.0 (PBKDF2-HMAC-SHA256 + AES-256-GCM) files written by the original HarmonyOS app import directly, and files exported here import back into it — same container, same key derivation, same per-asset JSON schema, including covers, character avatars, galleries and outline nodes.
@@ -45,6 +47,7 @@ AstNovel-Sailfish/
 │   ├── qml/pages/              # Silica pages (shelf, detail, editor, characters, ...)
 │   ├── qml/components/         # Apple-style widgets, cards, blur backdrop
 │   ├── qml/styles/             # design tokens singleton (AstnStyle)
+│   ├── translations/           # strings.tsv + gen-ts.ps1 → .ts/.qm (committed)
 │   ├── rpm/                    # RPM spec
 │   └── harbour-astnovel.pro
 └── README.md
@@ -53,8 +56,23 @@ AstNovel-Sailfish/
 ## Architecture
 
 - **C++ (`AstnStore`)** - JSON-file storage under `QStandardPaths::AppDataLocation`, PBKDF2-HMAC-SHA256 key derivation, AES-256-GCM chunk encryption for `.astn`, exposed to QML through `Q_INVOKABLE` methods (books, chapters, characters, world entries, outlines, export/import, autosave, cover frame capture)
-- **QML (Qt 5.6 / Silica)** - iOS-styled light theme on a fixed palette (`AstnStyle` singleton); no runtime gradients or shader effects except the probe-gated quick-reference blur; cover gradients are pre-baked PNG textures for smooth scrolling on software renderers
+- **QML (Qt 5.6 / Silica)** - iOS-styled light/dark themes on a fixed palette (`AstnStyle` singleton); no runtime gradients or shader effects except the probe-gated quick-reference blur; cover gradients are pre-baked PNG textures for smooth scrolling on software renderers
+- **Preferences** - language and dark-mode choices are persisted via QSettings in `~/.config/harbour-astnovel/harbour-astnovel.conf` and take effect immediately (language switching swaps the translator and reloads the view, because Qt 5.6 does not retranslate QML bindings on locale change)
 - **Cover thumbnail** - the page is captured with `grabToImage`, saved to a PNG in the cache directory by C++ and loaded by the cover window (which cannot use in-window grab URLs); the oldest frame persists while backgrounded
+
+## Localization
+
+The UI source language is Chinese (matching the `.astn` data format); the app ships with English, German, Russian and Finnish translations.
+
+- **Language resolution** - the in-app choice (*Settings → Language*) wins; without one, German/Russian/Finnish follow the system locale, Chinese systems get the source strings, and every other locale falls back to **English**
+- **Switching is instant** - translators are swapped and the whole view reloads in the new language, no restart needed; the choice persists across launches
+- **Data compatibility** - world-entry field keys stay Chinese inside `.astn` files; display labels are mapped at render time (`AstnStyle.worldFieldLabel`), so files from the original app localise automatically
+
+Translating / extending:
+
+1. `translations/strings.tsv` is the single source — one row per message, TAB-separated: *context, source (Chinese), English, German, Russian, Finnish*
+2. `translations/gen-ts.ps1` regenerates the four `.ts` files and compiles `.qm` binaries with `lrelease` (host-side — the SDK build engine ships no `lrelease`; the script uses the PySide6 copy)
+3. The generated `.ts`/`.qm` files are committed to the repository, so a plain `sfdk build` needs no Qt translation tools installed
 
 ## Building
 
@@ -98,6 +116,8 @@ Copyright (c) 2026 Astenyx. All rights reserved.
 - **大綱** - 卷 / 章 / 節樹狀結構，可連結章節、角色與世界觀條目
 - **桌面封面卡片** - 顯示目前頁面的即時縮圖；無可用畫面時退回整卡純色加應用程式圖示
 - **匯出** - TXT（去除 Markdown 標記）、Markdown 或 `.astn` v2.0，可選擇資料夾
+- **介面語言** - 簡體中文為源語言，隨附英文（預設）、德文、俄文與芬蘭文；於「設定 → 語言」即時切換，亦可跟隨系統語言
+- **深色模式** - iOS 風格明暗雙色板；選擇會持久保存，重啟後保留
 - **完全離線** - 無網路權限、無網路呼叫，所有資料僅存於裝置
 
 原版 HarmonyOS 應用寫出的 `.astn` v2.0（PBKDF2-HMAC-SHA256 + AES-256-GCM）檔案可直接匯入，本版匯出的檔案亦可匯回原版——容器、金鑰衍生、各資產 JSON 結構完全一致，含封面、角色頭像、圖片集與大綱節點。
@@ -129,6 +149,7 @@ AstNovel-Sailfish/
 │   ├── qml/pages/              # Silica 頁面（書架、詳情、編輯器、角色……）
 │   ├── qml/components/         # Apple 風格元件、卡片、模糊背景
 │   ├── qml/styles/             # 設計令牌單例（AstnStyle）
+│   ├── translations/           # strings.tsv + gen-ts.ps1 → .ts/.qm（已入庫）
 │   ├── rpm/                    # RPM spec
 │   └── harbour-astnovel.pro
 └── README.md
@@ -137,8 +158,23 @@ AstNovel-Sailfish/
 ## 架構說明
 
 - **C++（`AstnStore`）** - JSON 檔案儲存於 `QStandardPaths::AppDataLocation`，PBKDF2-HMAC-SHA256 金鑰衍生，`.astn` 採 AES-256-GCM 分塊加密，透過 `Q_INVOKABLE` 方法供 QML 呼叫（書籍、章節、角色、世界觀、大綱、匯出匯入、自動儲存、封面畫面擷取）
-- **QML（Qt 5.6 / Silica）** - iOS 風格淺色主題，固定色板（`AstnStyle` 單例）；除經探測閘控的速查模糊外，不使用執行期漸層與著色器；封面漸層為預先烘焙的 PNG 貼圖，確保軟體渲染下捲動流暢
+- **QML（Qt 5.6 / Silica）** - iOS 風格明暗雙主題，固定色板（`AstnStyle` 單例）；除經探測閘控的速查模糊外，不使用執行期漸層與著色器；封面漸層為預先烘焙的 PNG 貼圖，確保軟體渲染下捲動流暢
+- **偏好設定** - 語言與深色模式的選擇透過 QSettings 存於 `~/.config/harbour-astnovel/harbour-astnovel.conf`，變更立即生效（語言切換採換裝譯者並重載視圖，因 Qt 5.6 不會在語系變更時重譯 QML 綁定）
 - **封面縮圖** - 以 `grabToImage` 擷取頁面，由 C++ 存為快取目錄中的 PNG，再由封面視窗載入（封面視窗無法使用視窗內的抓取 URL）；退到背景時保留最後一幀
+
+## 在地化
+
+介面源語言為中文（與 `.astn` 資料格式一致），隨附英文、德文、俄文與芬蘭文翻譯。
+
+- **語言解析** - 以應用程式內的選擇（「設定 → 語言」）優先；未選擇時，德文/俄文/芬蘭文跟隨系統語系，中文系統使用源字串，其餘語系一律退回**英文**
+- **切換即時生效** - 換裝譯者後整個視圖以新語言重載，無需重啟；選擇跨啟動保留
+- **資料相容性** - 世界觀欄位鍵在 `.astn` 檔案內保留中文，顯示標籤於呈現時映射（`AstnStyle.worldFieldLabel`），原版檔案自動在地化
+
+翻譯與擴充：
+
+1. `translations/strings.tsv` 為唯一事實來源——每列一則訊息，以 TAB 分隔：*上下文、源文（中文）、英文、德文、俄文、芬蘭文*
+2. `translations/gen-ts.ps1` 重新生成四個 `.ts` 檔，並以 `lrelease` 編譯 `.qm`（在主機端執行——SDK 建置引擎未附 `lrelease`，腳本使用 PySide6 內建版本）
+3. 生成的 `.ts`/`.qm` 已入庫，一般 `sfdk build` 無需安裝 Qt 翻譯工具
 
 ## 建置
 
