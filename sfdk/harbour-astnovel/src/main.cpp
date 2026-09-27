@@ -2,6 +2,7 @@
 #include <QtQuick>
 #include <QLocale>
 #include <QSettings>
+#include <QTimer>
 #include <QTranslator>
 #include <sailfishapp.h>
 #include "astnovel.h"
@@ -70,12 +71,19 @@ int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("uiLangApplied", uiLang);
 
     // Live switch: the settings page persists the preference and emits
-    // uiLanguageChanged; swap translators and refresh uiLangApplied so the
-    // "needs restart" hint resolves immediately.
+    // uiLanguageChanged. Qt 5.6's QML engine does not reliably re-evaluate
+    // qsTr() bindings on LanguageChange, so after swapping translators the
+    // whole view is reloaded from source (deferred with a zero-timer so we
+    // never tear down QML objects while a QML call is still on the stack).
+    // The result is an immediate UI in the new language — no manual restart.
     QObject::connect(&store, &AstnStore::uiLanguageChanged, app.data(),
                      [&app, &activeTranslator, &view]() {
-        const QString code = applyLanguage(app.data(), &activeTranslator);
-        view->rootContext()->setContextProperty("uiLangApplied", code);
+        QTimer::singleShot(0, app.data(), [&app, &activeTranslator, &view]() {
+            const QString code = applyLanguage(app.data(), &activeTranslator);
+            view->rootContext()->setContextProperty("uiLangApplied", code);
+            view->engine()->clearComponentCache();
+            view->setSource(SailfishApp::pathTo("qml/main.qml"));
+        });
     });
 
     view->setSource(SailfishApp::pathTo("qml/main.qml"));
