@@ -70,7 +70,7 @@ QtObject {
         if (!ts)
             return ""
         var d = new Date(ts)
-        return (d.getMonth() + 1) + "月" + d.getDate() + "日"
+        return qsTr("%1月%2日").arg(d.getMonth() + 1).arg(d.getDate())
     }
 
     function formatDateTime(ts) {
@@ -82,5 +82,40 @@ QtObject {
         if (hh < 10) hh = "0" + hh
         if (mm < 10) mm = "0" + mm
         return (d.getMonth() + 1) + "/" + d.getDate() + " " + hh + ":" + mm
+    }
+
+    // World field data keys (Chinese, as stored in .astn files) → translated
+    // display labels. Data access always uses the Chinese key; only display
+    // goes through this mapping.
+    function worldFieldLabel(key) {
+        switch (key) {
+        case "地区名称": return qsTr("地区名称")
+        case "地形地貌": return qsTr("地形地貌")
+        case "气候特征": return qsTr("气候特征")
+        case "自然资源": return qsTr("自然资源")
+        case "居民分布": return qsTr("居民分布")
+        case "与相邻地区关系": return qsTr("与相邻地区关系")
+        case "事件名称": return qsTr("事件名称")
+        case "发生时间": return qsTr("发生时间")
+        case "关键人物": return qsTr("关键人物")
+        case "事件经过": return qsTr("事件经过")
+        case "影响与后果": return qsTr("影响与后果")
+        case "与其他事件关联": return qsTr("与其他事件关联")
+        case "体系名称": return qsTr("体系名称")
+        case "能量来源": return qsTr("能量来源")
+        case "施法规则": return qsTr("施法规则")
+        case "限制条件": return qsTr("限制条件")
+        case "与其他体系的关系": return qsTr("与其他体系的关系")
+        case "组织名称": return qsTr("组织名称")
+        case "组织类型": return qsTr("组织类型")
+        case "层级结构": return qsTr("层级结构")
+        case "权力分布": return qsTr("权力分布")
+        case "核心价值观": return qsTr("核心价值观")
+        case "与其他组织关系": return qsTr("与其他组织关系")
+        case "条目标题": return qsTr("条目标题")
+        case "详细描述": return qsTr("详细描述")
+        case "备注": return qsTr("备注")
+        default: return key
+        }
     }
 }

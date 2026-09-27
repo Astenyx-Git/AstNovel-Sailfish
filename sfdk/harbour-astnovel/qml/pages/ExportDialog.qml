@@ -222,7 +222,7 @@ Dialog {
                     var fmt = exportDialog.formatIndex === 2 ? "astn"
                             : (exportDialog.formatIndex === 1 ? "md" : "txt")
                     var p = store.exportBookAs(exportDialog.bookId, fmt, exportDialog.exportDir)
-                    exportDialog.resultMsg = p !== "" ? qsTr("已导出到 ") + p : qsTr("导出失败")
+                    exportDialog.resultMsg = p !== "" ? qsTr("已导出到%1").arg(p) : qsTr("导出失败")
                 }
             }
 

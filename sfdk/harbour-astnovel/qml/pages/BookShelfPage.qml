@@ -277,7 +277,7 @@ Page {
                         showCover: true
                         coverUri: modelData.coverDataUri ? modelData.coverDataUri : ""
                         title: modelData.title
-                        meta: (modelData.chapterCount ? modelData.chapterCount : 0) + "章 · "
+                        meta: qsTr("%1章").arg(modelData.chapterCount ? modelData.chapterCount : 0) + " · "
                               + AstnStyle.formatDate(modelData.updatedAt)
 
                         onClicked: pageStack.push(Qt.resolvedUrl("BookDetailPage.qml"),

@@ -150,7 +150,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 showCover: true
                 title: bookInfo.title ? bookInfo.title : ""
-                meta: (bookInfo.chapterCount ? bookInfo.chapterCount : 0) + "章"
+                meta: qsTr("%1章").arg(bookInfo.chapterCount ? bookInfo.chapterCount : 0)
             }
 
             // Description
@@ -179,7 +179,7 @@ Page {
                         leftMargin: Theme.horizontalPageMargin
                         rightMargin: Theme.horizontalPageMargin
                     }
-                    text: bookInfo.updatedAt ? qsTr("更新于 ") + AstnStyle.formatDateTime(bookInfo.updatedAt) : ""
+                    text: bookInfo.updatedAt ? qsTr("更新于%1").arg(AstnStyle.formatDateTime(bookInfo.updatedAt)) : ""
                     color: AstnStyle.cTextTertiary
                     font.pixelSize: AstnStyle.typeCaption
                 }

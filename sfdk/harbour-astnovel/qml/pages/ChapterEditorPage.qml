@@ -173,7 +173,7 @@ Page {
                 continue
             var v = fields[labels[i]] ? fields[labels[i]] : ""
             if (v.length > 0)
-                return labels[i] + ": " + v
+                return AstnStyle.worldFieldLabel(labels[i]) + ": " + v
         }
         return ""
     }
@@ -327,7 +327,7 @@ Page {
                 rightMargin: Theme.horizontalPageMargin
                 verticalCenter: parent.verticalCenter
             }
-            text: store.countWords(editorTextArea.text) + qsTr("字")
+            text: qsTr("%1字").arg(store.countWords(editorTextArea.text))
             color: AstnStyle.cTextTertiary
             font.pixelSize: AstnStyle.typeCaption
         }

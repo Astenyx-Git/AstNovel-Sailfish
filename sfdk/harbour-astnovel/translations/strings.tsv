@@ -1,0 +1,207 @@
+BookDetailPage	确定要删除《%1》吗？书籍的全部章节、角色与世界观设定将被移除，此操作不可撤销。	Delete “%1”? All chapters, characters and world settings of this book will be removed. This cannot be undone.	„%1“ löschen? Alle Kapitel, Charaktere und Welteinstellungen dieses Buches werden entfernt. Dies kann nicht rückgängig gemacht werden.	Удалить «%1»? Все главы, персонажи и настройки мира этой книги будут удалены. Это действие необратимо.	Poistetaanko “%1”? Kirjan kaikki luvut, hahmot ja maailmanasetukset poistetaan. Tätä ei voi kumota.
+BookDetailPage	‹ 书架	‹ Bookshelf	‹ Bücherregal	‹ Полка	‹ Hylly
+BookDetailPage	%1章	%1 chapters	%1 Kapitel	%1 глав	%1 lukua
+BookDetailPage	暂无简介	No description yet	Keine Beschreibung	Описания пока нет	Ei kuvausta
+BookDetailPage	更新于%1	Updated %1	Aktualisiert %1	Обновлено %1	Päivitetty %1
+BookDetailPage	章节	Chapters	Kapitel	Главы	Luvut
+BookDetailPage	大纲	Outline	Gliederung	План	Jäsennys
+BookDetailPage	角色	Characters	Charaktere	Персонажи	Hahmot
+BookDetailPage	世界观	World	Weltenbau	Мир	Maailma
+BookDetailPage	编辑书籍	Edit book	Buch bearbeiten	Изменить книгу	Muokkaa kirjaa
+BookDetailPage	导出书籍	Export book	Buch exportieren	Экспортировать книгу	Vie kirja
+BookDetailPage	删除书籍	Delete book	Buch löschen	Удалить книгу	Poista kirja
+BookDetailPage	确认删除	Delete	Löschen	Удалить	Poista
+BookDetailPage	取消	Cancel	Abbrechen	Отмена	Peruuta
+BookShelfPage	检测到同名书籍	Title already exists	Titel existiert bereits	Такое название уже есть	Sama otsikko on jo olemassa
+BookShelfPage	书架中已存在同名的书，请选择导入方式：	A book with this title is already on the shelf. Choose how to import:	Ein Buch mit diesem Titel ist bereits im Regal. Bitte Importart wählen:	На полке уже есть книга с таким названием. Выберите способ импорта:	Hyllyssä on jo samanniminen kirja. Valitse tuontitapa:
+BookShelfPage	创建副本	Create copy	Kopie anlegen	Создать копию	Luo kopio
+BookShelfPage	覆盖原书	Overwrite original	Original überschreiben	Перезаписать оригинал	Korvaa alkuperäinen
+BookShelfPage	跳过	Skip	Überspringen	Пропустить	Ohita
+BookShelfPage	还没有书籍，点击下方按钮开始创作	No books yet — tap the button below to start writing	Noch keine Bücher – tippe unten, um loszulegen	Книг пока нет — нажмите кнопку ниже, чтобы начать	Ei vielä kirjoja – aloita napauttamalla alla olevaa painiketta
+BookShelfPage	%1章	%1 chapters	%1 Kapitel	%1 глав	%1 lukua
+BookShelfPage	新建书籍	New book	Neues Buch	Новая книга	Uusi kirja
+BookShelfPage	取消	Cancel	Abbrechen	Отмена	Peruuta
+ChapterEditorPage	已保存	Saved	Gespeichert	Сохранено	Tallennettu
+ChapterEditorPage	保存失败	Save failed	Speichern fehlgeschlagen	Не удалось сохранить	Tallennus epäonnistui
+ChapterEditorPage	姓名	Name	Name	Имя	Nimi
+ChapterEditorPage	年龄	Age	Alter	Возраст	Ikä
+ChapterEditorPage	性别	Gender	Geschlecht	Пол	Sukupuoli
+ChapterEditorPage	身高	Height	Größe	Рост	Pituus
+ChapterEditorPage	体重	Weight	Gewicht	Вес	Paino
+ChapterEditorPage	种族	Race	Volk	Раса	Rotu
+ChapterEditorPage	外貌描述	Appearance	Aussehen	Внешность	Ulkonäkö
+ChapterEditorPage	性格特征	Personality	Charaktereigenschaften	Характер	Luonne
+ChapterEditorPage	背景故事	Backstory	Vorgeschichte	Предыстория	Tausta
+ChapterEditorPage	备注	Notes	Notizen	Заметки	Muistiinpanot
+ChapterEditorPage	地理	Geography	Geografie	География	Maantiede
+ChapterEditorPage	历史	History	Geschichte	История	Historia
+ChapterEditorPage	力量体系	Power system	Kraftsystem	Система сил	Voimajärjestelmä
+ChapterEditorPage	社会结构	Social structure	Gesellschaftsstruktur	Общественное устройство	Yhteiskuntarakenne
+ChapterEditorPage	其他	Other	Sonstiges	Другое	Muu
+ChapterEditorPage	已恢复未保存的修改	Unsaved changes restored	Ungespeicherte Änderungen wiederhergestellt	Несохранённые изменения восстановлены	Tallentamattomat muutokset palautettu
+ChapterEditorPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+ChapterEditorPage	速查	Quick ref	Übersicht	Сводка	Yhteenveto
+ChapterEditorPage	保存	Save	Speichern	Сохранить	Tallenna
+ChapterEditorPage	删除本页	Delete this page	Diese Seite löschen	Удалить эту страницу	Poista tämä sivu
+ChapterEditorPage	%1字	%1 words	%1 Wörter	%1 слов	%1 sanaa
+ChapterEditorPage	开始创作...	Start writing...	Einfach losschreiben...	Начните писать...	Aloita kirjoittaminen...
+ChapterEditorPage	速查面板	Quick reference	Schnellübersicht	Быстрая сводка	Pikaopas
+ChapterEditorPage	大纲	Outline	Gliederung	План	Jäsennys
+ChapterEditorPage	角色	Characters	Charaktere	Персонажи	Hahmot
+ChapterEditorPage	世界观	World	Weltenbau	Мир	Maailma
+ChapterEditorPage	暂无大纲	No outline yet	Noch keine Gliederung	Плана пока нет	Ei vielä jäsennystä
+ChapterEditorPage	未命名大纲	Untitled outline	Unbenannte Gliederung	План без названия	Nimetön jäsennys
+ChapterEditorPage	暂无角色设定	No character profiles yet	Noch keine Charakterprofile	Профилей персонажей пока нет	Ei vielä hahmoprofiileja
+ChapterEditorPage	未命名角色	Untitled character	Unbenannter Charakter	Персонаж без имени	Nimetön hahmo
+ChapterEditorPage	暂无世界观设定	No world settings yet	Noch keine Welteinstellungen	Настроек мира пока нет	Ei vielä maailma-asetuksia
+ChapterEditorPage	（未填写）	(not filled in)	(nicht ausgefüllt)	(не заполнено)	(ei täytetty)
+ChapterEditorPage	暂无条目	No entries	Keine Einträge	Нет записей	Ei merkintöjä
+ChapterListPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+ChapterListPage	章节	Chapters	Kapitel	Главы	Luvut
+ChapterListPage	暂无章节	No chapters yet	Noch keine Kapitel	Глав пока нет	Ei vielä lukuja
+ChapterListPage	点击下方按钮开始写作	Tap the button below to start writing	Tippe unten, um zu schreiben	Нажмите кнопку ниже, чтобы начать писать	Aloita kirjoittaminen napauttamalla alla olevaa painiketta
+ChapterListPage	%1字	%1 words	%1 Wörter	%1 слов	%1 sanaa
+ChapterListPage	新建章节	New chapter	Neues Kapitel	Новая глава	Uusi luku
+ChapterListPage	新章节	New chapter	Neues Kapitel	Новая глава	Uusi luku
+CharacterListPage	姓名	Name	Name	Имя	Nimi
+CharacterListPage	年龄	Age	Alter	Возраст	Ikä
+CharacterListPage	性别	Gender	Geschlecht	Пол	Sukupuoli
+CharacterListPage	身高	Height	Größe	Рост	Pituus
+CharacterListPage	体重	Weight	Gewicht	Вес	Paino
+CharacterListPage	种族	Race	Volk	Раса	Rotu
+CharacterListPage	外貌	Appearance	Aussehen	Внешность	Ulkonäkö
+CharacterListPage	性格	Personality	Persönlichkeit	Характер	Luonne
+CharacterListPage	背景	Background	Hintergrund	Предыстория	Tausta
+CharacterListPage	备注	Notes	Notizen	Заметки	Muistiinpanot
+CharacterListPage	取消	Cancel	Abbrechen	Отмена	Peruuta
+CharacterListPage	编辑角色	Edit character	Charakter bearbeiten	Изменить персонажа	Muokkaa hahmoa
+CharacterListPage	添加角色	Add character	Charakter hinzufügen	Добавить персонажа	Lisää hahmo
+CharacterListPage	保存	Save	Speichern	Сохранить	Tallenna
+CharacterListPage	头像	Avatar	Avatar	Аватар	Profiilikuva
+CharacterListPage	设置头像	Set avatar	Avatar festlegen	Установить аватар	Aseta profiilikuva
+CharacterListPage	清除头像	Remove avatar	Avatar entfernen	Убрать аватар	Poista profiilikuva
+CharacterListPage	设定图片（长按移除）	Images (long-press to remove)	Bilder (zum Entfernen lange drücken)	Изображения (долгое нажатие — удалить)	Kuvat (poista pitkällä painalluksella)
+CharacterListPage	输入角色姓名（必填）	Enter character name (required)	Charaktername eingeben (erforderlich)	Введите имя персонажа (обязательно)	Syötä hahmon nimi (pakollinen)
+CharacterListPage	填写%1	Enter %1	%1 eingeben	Введите %1	Syötä %1
+CharacterListPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+CharacterListPage	角色	Characters	Charaktere	Персонажи	Hahmot
+CharacterListPage	暂无角色	No characters yet	Noch keine Charaktere	Персонажей пока нет	Ei vielä hahmoja
+CharacterListPage	点击下方按钮添加角色	Tap the button below to add a character	Tippe unten, um einen Charakter hinzuzufügen	Нажмите кнопку ниже, чтобы добавить персонажа	Lisää hahmo napauttamalla alla olevaa painiketta
+CharacterListPage	未命名角色	Untitled character	Unbenannter Charakter	Персонаж без имени	Nimetön hahmo
+EditBookDialog	取消	Cancel	Abbrechen	Отмена	Peruuta
+EditBookDialog	编辑书籍	Edit book	Buch bearbeiten	Изменить книгу	Muokkaa kirjaa
+EditBookDialog	新建书籍	New book	Neues Buch	Новая книга	Uusi kirja
+EditBookDialog	保存	Save	Speichern	Сохранить	Tallenna
+EditBookDialog	封面	Cover	Cover	Обложка	Kansi
+EditBookDialog	设置封面	Set cover	Cover festlegen	Установить обложку	Aseta kansi
+EditBookDialog	清除封面	Remove cover	Cover entfernen	Убрать обложку	Poista kansi
+EditBookDialog	书名	Book title	Buchtitel	Название книги	Kirjan nimi
+EditBookDialog	输入书名	Enter book title	Buchtitel eingeben	Введите название книги	Syötä kirjan nimi
+EditBookDialog	简介	Description	Beschreibung	Описание	Kuvaus
+EditBookDialog	输入简介（可选）	Enter description (optional)	Beschreibung eingeben (optional)	Введите описание (необязательно)	Syötä kuvaus (valinnainen)
+ExportDialog	取消	Cancel	Abbrechen	Отмена	Peruuta
+ExportDialog	导出书籍	Export book	Buch exportieren	Экспортировать книгу	Vie kirja
+ExportDialog	完成	Done	Fertig	Готово	Valmis
+ExportDialog	选择导出格式	Choose export format	Exportformat wählen	Выберите формат экспорта	Valitse vientimuoto
+ExportDialog	AstNovel 编辑器原生格式，包含全部内容，可用于完整导入。	AstNovel editor's native format. Contains everything and can be imported back in full.	Das native Format des AstNovel-Editors. Enthält alles und lässt sich vollständig wieder importieren.	Родной формат редактора AstNovel. Содержит всё и полностью импортируется обратно.	AstNovel-editorin natiivimuoto. Sisältää kaiken ja voidaan tuoda takaisin kokonaan.
+ExportDialog	保存位置	Save location	Speicherort	Папка сохранения	Tallennussijainti
+ExportDialog	默认：文档 (Documents)	Default: Documents	Standard: Dokumente	По умолчанию: Документы	Oletus: Dokumentit
+ExportDialog	选择位置	Choose location	Ort wählen	Выбрать папку	Valitse sijainti
+ExportDialog	开始导出	Start export	Export starten	Начать экспорт	Aloita vienti
+ExportDialog	已导出到%1	Exported to %1	Exportiert nach %1	Экспортировано в %1	Viety kohteeseen %1
+ExportDialog	导出失败	Export failed	Export fehlgeschlagen	Не удалось экспортировать	Vienti epäonnistui
+ExportDialog	已导出	Exported	Exportiert	Экспортировано	Viety
+OutlineDetailPage	卷	Volume	Band	Том	Osa
+OutlineDetailPage	章	Chapter	Kapitel	Глава	Luku
+OutlineDetailPage	节	Section	Abschnitt	Раздел	Osio
+OutlineDetailPage	（未填写）	(not filled in)	(nicht ausgefüllt)	(не заполнено)	(ei täytetty)
+OutlineDetailPage	已保存	Saved	Gespeichert	Сохранено	Tallennettu
+OutlineDetailPage	保存失败	Save failed	Speichern fehlgeschlagen	Не удалось сохранить	Tallennus epäonnistui
+OutlineDetailPage	取消	Cancel	Abbrechen	Отмена	Peruuta
+OutlineDetailPage	确认	OK	OK	ОК	OK
+OutlineDetailPage	删除大纲	Delete outline	Gliederung löschen	Удалить план	Poista jäsennys
+OutlineDetailPage	确定删除该大纲节点吗？该操作不可恢复。	Delete this outline node? This cannot be undone.	Diesen Gliederungsknoten löschen? Das kann nicht rückgängig gemacht werden.	Удалить этот узел плана? Это действие необратимо.	Poistetaanko tämä jäsennyssolmu? Tätä ei voi kumota.
+OutlineDetailPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+OutlineDetailPage	编辑大纲	Edit outline	Gliederung bearbeiten	Изменить план	Muokkaa jäsennystä
+OutlineDetailPage	保存	Save	Speichern	Сохранить	Tallenna
+OutlineDetailPage	标题	Title	Titel	Название	Otsikko
+OutlineDetailPage	输入大纲标题	Enter outline title	Gliederungstitel eingeben	Введите название плана	Syötä jäsennyksen otsikko
+OutlineDetailPage	添加章	Add chapter	Kapitel hinzufügen	Добавить главу	Lisää luku
+OutlineDetailPage	添加节	Add section	Abschnitt hinzufügen	Добавить раздел	Lisää osio
+OutlineDetailPage	添加子节	Add sub-section	Unterabschnitt hinzufügen	Добавить подраздел	Lisää alaosio
+OutlineDetailPage	新章	New chapter	Neues Kapitel	Новая глава	Uusi luku
+OutlineDetailPage	新节	New section	Neuer Abschnitt	Новый раздел	Uusi osio
+OutlineDetailPage	新子节	New sub-section	Neuer Unterabschnitt	Новый подраздел	Uusi alaosio
+OutlineDetailPage	已添加子节点	Sub-node added	Unterknoten hinzugefügt	Подузел добавлен	Alisolmu lisätty
+OutlineDetailPage	创建失败	Failed to create	Erstellen fehlgeschlagen	Не удалось создать	Luonti epäonnistui
+OutlineDetailPage	内容	Content	Inhalt	Содержание	Sisältö
+OutlineDetailPage	填写大纲内容	Fill in the outline content	Gliederungsinhalt eingeben	Введите содержание плана	Syötä jäsennyksen sisältö
+OutlineDetailPage	备注	Notes	Notizen	Заметки	Muistiinpanot
+OutlineDetailPage	填写备注	Fill in the notes	Notizen eingeben	Введите заметки	Syötä muistiinpanot
+OutlineDetailPage	删除该节点	Delete this node	Diesen Knoten löschen	Удалить этот узел	Poista tämä solmu
+OutlineDetailPage	关联章节	Linked chapters	Verknüpfte Kapitel	Связанные главы	Linkitetyt luvut
+OutlineDetailPage	关联角色	Linked characters	Verknüpfte Charaktere	Связанные персонажи	Linkitetyt hahmot
+OutlineDetailPage	关联世界观	Linked world settings	Verknüpfte Welteinstellungen	Связанные настройки мира	Linkitetyt maailma-asetukset
+OutlineListPage	卷	Volume	Band	Том	Osa
+OutlineListPage	章	Chapter	Kapitel	Глава	Luku
+OutlineListPage	节	Section	Abschnitt	Раздел	Osio
+OutlineListPage	取消	Cancel	Abbrechen	Отмена	Peruuta
+OutlineListPage	确认	OK	OK	ОК	OK
+OutlineListPage	删除大纲	Delete outline	Gliederung löschen	Удалить план	Poista jäsennys
+OutlineListPage	确定删除「%1」吗？该操作不可恢复。	Delete “%1”? This cannot be undone.	„%1“ löschen? Das kann nicht rückgängig gemacht werden.	Удалить «%1»? Это действие необратимо.	Poistetaanko “%1”? Tätä ei voi kumota.
+OutlineListPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+OutlineListPage	大纲	Outline	Gliederung	План	Jäsennys
+OutlineListPage	还没有大纲，点击下方按钮添加	No outline yet — tap the button below to add one	Noch keine Gliederung – tippe unten, um eine hinzuzufügen	Плана пока нет — нажмите кнопку ниже, чтобы добавить	Ei vielä jäsennystä – lisää napauttamalla alla olevaa painiketta
+OutlineListPage	未命名大纲	Untitled outline	Unbenannte Gliederung	План без названия	Nimetön jäsennys
+OutlineListPage	添加卷	Add volume	Band hinzufügen	Добавить том	Lisää osa
+OutlineListPage	新卷	New volume	Neuer Band	Новый том	Uusi osa
+SettingsPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+SettingsPage	设置	Settings	Einstellungen	Настройки	Asetukset
+SettingsPage	外观	Appearance	Erscheinungsbild	Внешний вид	Ulkoasu
+SettingsPage	深色模式	Dark mode	Dunkler Modus	Тёмная тема	Tumma tila
+SettingsPage	关于	About	Über	О программе	Tietoja
+SettingsPage	AstNovel for Sailfish OS · 版本 4.50.Ast.3	AstNovel for Sailfish OS · Version 4.50.Ast.3	AstNovel für Sailfish OS · Version 4.50.Ast.3	AstNovel для Sailfish OS · Версия 4.50.Ast.3	AstNovel Sailfish OS:lle · Versio 4.50.Ast.3
+WorldSettingsPage	地理	Geography	Geografie	География	Maantiede
+WorldSettingsPage	历史	History	Geschichte	История	Historia
+WorldSettingsPage	力量体系	Power system	Kraftsystem	Система сил	Voimajärjestelmä
+WorldSettingsPage	社会结构	Social structure	Gesellschaftsstruktur	Общественное устройство	Yhteiskuntarakenne
+WorldSettingsPage	其他	Other	Sonstiges	Другое	Muu
+WorldSettingsPage	（未填写）	(not filled in)	(nicht ausgefüllt)	(не заполнено)	(ei täytetty)
+WorldSettingsPage	取消	Cancel	Abbrechen	Отмена	Peruuta
+WorldSettingsPage	编辑条目	Edit entry	Eintrag bearbeiten	Изменить запись	Muokkaa merkintää
+WorldSettingsPage	添加条目	Add entry	Eintrag hinzufügen	Добавить запись	Lisää merkintä
+WorldSettingsPage	保存	Save	Speichern	Сохранить	Tallenna
+WorldSettingsPage	填写%1	Enter %1	%1 eingeben	Введите %1	Syötä %1
+WorldSettingsPage	‹ 返回	‹ Back	‹ Zurück	‹ Назад	‹ Takaisin
+WorldSettingsPage	‹ 分类	‹ Categories	‹ Kategorien	‹ Категории	‹ Luokat
+WorldSettingsPage	世界观设定	Worldbuilding	Weltenbau	Мир	Maailmanrakennus
+WorldSettingsPage	＋ 添加	+ Add	+ Hinzufügen	+ Добавить	+ Lisää
+WorldSettingsPage	%1条	%1 entries	%1 Einträge	%1 зап.	%1 merkintää
+WorldSettingsPage	暂无条目，点击右上角添加	No entries yet — tap + in the top-right corner to add	Noch keine Einträge – tippe oben rechts auf +	Записей пока нет — нажмите «+» в правом верхнем углу	Ei vielä merkintöjä – lisää napauttamalla + oikeasta yläkulmasta
+AstnStyle	%1月%2日	%1/%2	%2.%1.	%2.%1	%2.%1.
+AstnStyle	地区名称	Region name	Gebietsname	Название региона	Alueen nimi
+AstnStyle	地形地貌	Terrain	Gelände	Рельеф	Maasto
+AstnStyle	气候特征	Climate	Klima	Климат	Ilmasto
+AstnStyle	自然资源	Natural resources	Natürliche Ressourcen	Природные ресурсы	Luonnonvarat
+AstnStyle	居民分布	Inhabitants	Bevölkerung	Расселение жителей	Asukasjakauma
+AstnStyle	与相邻地区关系	Neighbouring regions	Nachbargebiete	Соседние регионы	Naaperialueet
+AstnStyle	事件名称	Event name	Ereignisname	Название события	Tapahtuman nimi
+AstnStyle	发生时间	Date	Zeitpunkt	Время события	Ajankohta
+AstnStyle	关键人物	Key figures	Schlüsselfiguren	Ключевые фигуры	Keskeiset henkilöt
+AstnStyle	事件经过	What happened	Ereignisverlauf	Ход событий	Tapahtumien kulku
+AstnStyle	影响与后果	Impact and aftermath	Folgen und Auswirkungen	Последствия и влияние	Seuraukset
+AstnStyle	与其他事件关联	Related events	Verwandte Ereignisse	Связанные события	Liittyvät tapahtumat
+AstnStyle	体系名称	System name	Systemname	Название системы	Järjestelmän nimi
+AstnStyle	能量来源	Energy source	Energiequelle	Источник энергии	Energianlähde
+AstnStyle	施法规则	Casting rules	Zauberregeln	Правила магии	Loitsusäännöt
+AstnStyle	限制条件	Limitations	Einschränkungen	Ограничения	Rajoitukset
+AstnStyle	与其他体系的关系	Related systems	Verwandte Systeme	Связанные системы	Liittyvät järjestelmät
+AstnStyle	组织名称	Organisation name	Organisationsname	Название организации	Järjestön nimi
+AstnStyle	组织类型	Type	Organisationstyp	Тип организации	Järjestön tyyppi
+AstnStyle	层级结构	Hierarchy	Hierarchie	Иерархия	Hierarkia
+AstnStyle	权力分布	Power distribution	Machtverteilung	Распределение власти	Vallanjako
+AstnStyle	核心价值观	Core values	Grundwerte	Ключевые ценности	Perusarvot
+AstnStyle	与其他组织关系	Related organisations	Verwandte Organisationen	Связанные организации	Liittyvät järjestöt
+AstnStyle	条目标题	Entry title	Eintragstitel	Название записи	Merkinnän otsikko
+AstnStyle	详细描述	Detailed description	Detaillierte Beschreibung	Подробное описание	Yksityiskohtainen kuvaus
+AstnStyle	备注	Notes	Notizen	Заметки	Muistiinpanot

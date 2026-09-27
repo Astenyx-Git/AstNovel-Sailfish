@@ -14,11 +14,11 @@ Page {
     property string currentCategory: ""     // "" → category grid
     property var entryItems: []
     readonly property var categories: [
-        { key: "GEOGRAPHY",       name: "地理" },
-        { key: "HISTORY",         name: "历史" },
-        { key: "MAGIC_SYSTEM",    name: "力量体系" },
-        { key: "SOCIAL_STRUCTURE", name: "社会结构" },
-        { key: "OTHER",           name: "其他" }
+        { key: "GEOGRAPHY",       name: qsTr("地理") },
+        { key: "HISTORY",         name: qsTr("历史") },
+        { key: "MAGIC_SYSTEM",    name: qsTr("力量体系") },
+        { key: "SOCIAL_STRUCTURE", name: qsTr("社会结构") },
+        { key: "OTHER",           name: qsTr("其他") }
     ]
 
     function catName(key) {
@@ -134,7 +134,7 @@ Page {
                                     left: parent.left
                                     leftMargin: Theme.horizontalPageMargin
                                 }
-                                text: modelData
+                                text: AstnStyle.worldFieldLabel(modelData)
                                 color: AstnStyle.cTextSecondary
                                 font.pixelSize: AstnStyle.typeCaption
                             }
@@ -144,7 +144,7 @@ Page {
                                 text: entryPage.initialValues[modelData]
                                       ? entryPage.initialValues[modelData] : ""
                                 color: AstnStyle.cTextPrimary
-                                placeholderText: qsTr("填写") + modelData
+                                placeholderText: qsTr("填写%1").arg(AstnStyle.worldFieldLabel(modelData))
                                 onTextChanged: {
                                     var v = entryPage.currentValues
                                     v[modelData] = text
@@ -285,7 +285,7 @@ Page {
                             Label {
                                 width: parent.width
                                 horizontalAlignment: Text.AlignHCenter
-                                text: catCount(modelData.key) + "条"
+                                text: qsTr("%1条").arg(catCount(modelData.key))
                                 color: AstnStyle.cTextSecondary
                                 font.pixelSize: AstnStyle.typeCaption
                             }

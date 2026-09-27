@@ -75,7 +75,7 @@ Page {
                     showCover: false
                     title: modelData.title
                     subtitle: modelData.content
-                    meta: (modelData.wordCount ? modelData.wordCount : 0) + "字 · "
+                    meta: qsTr("%1字").arg(modelData.wordCount ? modelData.wordCount : 0) + " · "
                           + AstnStyle.formatDateTime(modelData.updatedAt)
 
                     onClicked: pageStack.push(Qt.resolvedUrl("ChapterEditorPage.qml"),

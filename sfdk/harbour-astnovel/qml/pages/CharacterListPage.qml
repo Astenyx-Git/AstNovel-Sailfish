@@ -374,7 +374,7 @@ Page {
                                       ? charPage.initialValues[modelData.key] : ""
                                 color: AstnStyle.cTextPrimary
                                 label: modelData.label
-                                placeholderText: qsTr("填写") + modelData.label
+                                placeholderText: qsTr("填写%1").arg(modelData.label)
                                 onTextChanged: {
                                     var v = charPage.currentValues
                                     v[modelData.key] = text
