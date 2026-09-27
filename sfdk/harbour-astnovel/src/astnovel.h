@@ -11,9 +11,11 @@ class AstnStore : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString uiLanguage READ uiLanguage WRITE setUiLanguage NOTIFY uiLanguageChanged)
+    Q_PROPERTY(bool darkMode READ darkMode WRITE setDarkMode NOTIFY darkModeChanged)
 
 signals:
     void uiLanguageChanged();
+    void darkModeChanged();
 
 public:
     explicit AstnStore(QObject *parent = 0);
@@ -56,6 +58,8 @@ public:
     // means "follow the system locale" (see main.cpp)
     Q_INVOKABLE QString uiLanguage() const;
     Q_INVOKABLE void setUiLanguage(const QString &lang);
+    Q_INVOKABLE bool darkMode() const;
+    Q_INVOKABLE void setDarkMode(bool dark);
 
     // Editor support: CJK word count + crash-recovery autosave
     Q_INVOKABLE int countWords(const QString &text) const;

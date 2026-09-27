@@ -3,8 +3,9 @@ pragma Singleton
 import QtQuick 2.2
 
 QtObject {
-    // Dark mode switch
-    property bool isDarkMode: false
+    // Dark mode switch — persisted via the store (ui/darkMode); the whole
+    // palette below is bound to it, so every binding refreshes live.
+    property bool isDarkMode: store.darkMode
 
     // Live GaussianBlur capability probe result (set once from main.qml)
     property bool liveBlurOk: false

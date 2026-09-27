@@ -725,6 +725,21 @@ void AstnStore::setUiLanguage(const QString &lang)
     emit uiLanguageChanged();
 }
 
+// --- Dark mode preference (persisted in ~/.config) -------------------------
+bool AstnStore::darkMode() const
+{
+    QSettings s(QStringLiteral("harbour-astnovel"), QStringLiteral("harbour-astnovel"));
+    return s.value(QStringLiteral("ui/darkMode"), false).toBool();
+}
+
+void AstnStore::setDarkMode(bool dark)
+{
+    QSettings s(QStringLiteral("harbour-astnovel"), QStringLiteral("harbour-astnovel"));
+    s.setValue(QStringLiteral("ui/darkMode"), dark);
+    s.sync();
+    emit darkModeChanged();
+}
+
 static QString worldTitleFromFields(const QVariantMap &fields)
 {
     // first non-empty value excluding the 备注 field (like getSummary)

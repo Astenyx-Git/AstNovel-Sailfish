@@ -106,7 +106,7 @@ Page {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: AstnStyle.isDarkMode = !AstnStyle.isDarkMode
+                            onClicked: store.setDarkMode(!store.darkMode)
                         }
 
                         Behavior on color {
