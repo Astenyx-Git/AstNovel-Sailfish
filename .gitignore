@@ -24,3 +24,6 @@ RPMS/
 *.log
 Thumbs.db
 Desktop.ini
+
+# Diagnostic screenshots dumped at the repo root (real assets live under sfdk/)
+/*.png
