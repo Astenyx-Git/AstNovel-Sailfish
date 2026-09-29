@@ -18,7 +18,7 @@ A novel-writing application for Sailfish OS, ported from the original HarmonyOS 
 - **Dark mode** - light/dark palettes styled after iOS; the choice is persisted and survives restarts
 - **Fully offline** - no network permission, no network calls; all data stays on the device
 
-`.astn` v2.0 (PBKDF2-HMAC-SHA256 + AES-256-GCM) files written by the original HarmonyOS app import directly, and files exported here import back into it — same container, same key derivation, same per-asset JSON schema, including covers, character avatars, galleries and outline nodes.
+`.astn` v2.0 (PBKDF2-HMAC-SHA256 + AES-256-GCM) containers are read across generations: files written by the original HarmonyOS app — and by older builds of this port — import directly, and files exported here import back into them. The container, key-derivation structure and per-asset JSON schema are identical, including covers, character avatars, galleries and outline nodes. **Note:** new exports use a generation-2 master secret and therefore do *not* open in the original app; legacy containers remain fully readable here.
 
 ## Install
 
@@ -94,9 +94,9 @@ The `.astn` interop master secret is **not stored in this repository**. To build
 - create `sfdk/harbour-astnovel/mastersecret.pri` (gitignored) containing `DEFINES += ASTN_MASTER_SECRET=\"<the interop secret>\"`, or
 - export `ASTN_MASTER_SECRET` in an environment that reaches qmake.
 
-At runtime the value can also be provided through the `ASTN_MASTER_SECRET` environment variable; with no secret configured the app fails closed (`.astn` import/export refuse to derive a key).
+At runtime the legacy value can also be provided through the `ASTN_MASTER_SECRET` environment variable; with no legacy secret configured the app fails closed for *legacy* containers only (generation-2 containers still read and write normally).
 
-> **Security note** — the original HarmonyOS app embeds the same secret inside its binary; that is precisely what makes `.astn` files interchangeable between the two apps. The secret therefore works as an interop identifier rather than a confidentiality boundary. Content protection rests on the per-file random salt and AES-256-GCM authentication, not on the secret staying private.
+> **Key generations** — since this port writes generation-2 containers, the legacy secret embedded in the original HarmonyOS app is only ever used to *read* old files: reads try legacy first, then generation 2, with AES-GCM authentication deciding. The generation-2 password is `hex(SHA-256("REDACTED_GEN2_SEED"))`, a public constant by design; content protection rests on the per-file random salt and AES-256-GCM authentication, not on the secret staying private. New exports do not open in the original app.
 
 ## Support
 
@@ -131,7 +131,7 @@ Copyright (c) 2026 Astenyx. All rights reserved.
 - **深色模式** - iOS 風格明暗雙色板；選擇會持久保存，重啟後保留
 - **完全離線** - 無網路權限、無網路呼叫，所有資料僅存於裝置
 
-原版 HarmonyOS 應用寫出的 `.astn` v2.0（PBKDF2-HMAC-SHA256 + AES-256-GCM）檔案可直接匯入，本版匯出的檔案亦可匯回原版——容器、金鑰衍生、各資產 JSON 結構完全一致，含封面、角色頭像、圖片集與大綱節點。
+原版 HarmonyOS 應用寫出的 `.astn` v2.0（PBKDF2-HMAC-SHA256 + AES-256-GCM）檔案可直接匯入，本埠較早版本匯出的檔案亦同——容器、金鑰衍生結構、各資產 JSON 結構完全一致，含封面、角色頭像、圖片集與大綱節點。**注意**：新版匯出採用第二代主密鑰，原版應用程式無法開啟；舊版容器在本應用中仍可完整讀取。
 
 ## 安裝
 
@@ -207,9 +207,9 @@ sfdk -c target=SailfishOS-5.1.0.11-aarch64 build   # 64 位元裝置
 - 建立 `sfdk/harbour-astnovel/mastersecret.pri`（已 gitignore），內容為 `DEFINES += ASTN_MASTER_SECRET=\"<互通密鑰>\"`；或
 - 在能傳遞到 qmake 的環境中匯出 `ASTN_MASTER_SECRET`。
 
-執行期亦可透過同名環境變數 `ASTN_MASTER_SECRET` 提供；未配置任何密鑰時應用程式採失敗關閉策略（`.astn` 匯入匯出拒絕衍生金鑰）。
+執行期亦可透過同名環境變數 `ASTN_MASTER_SECRET` 提供舊密鑰；未配置時僅對*舊版容器*採失敗關閉策略（第二代容器仍可正常讀寫）。
 
-> **安全說明** — 原版 HarmonyOS 應用程式其二進位檔內嵌同一密鑰，這正是 `.astn` 檔案得以在兩個應用間互通的原因。因此該密鑰實為互通識別碼，而非保密邊界；內容保護依賴每檔案隨機鹽與 AES-256-GCM 認證，而非密鑰本身保密。
+> **密鑰世代** — 本埠匯出第二代容器，原版 HarmonyOS 應用內嵌的舊密鑰僅用於*讀取*舊檔：讀取時先嘗試舊密鑰、再嘗試第二代，由 AES-GCM 認證自動判定。第二代口令為 `hex(SHA-256("REDACTED_GEN2_SEED"))`，屬刻意公開的常量；內容保護依賴每檔案隨機鹽與 AES-256-GCM 認證，而非密鑰保密。新匯出的檔案無法在原版應用中開啟。
 
 ## 支援
 

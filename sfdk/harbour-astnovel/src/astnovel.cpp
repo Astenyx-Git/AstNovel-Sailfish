@@ -21,19 +21,25 @@
 
 #include <openssl/evp.h>
 #include <openssl/rand.h>
+#include <QCryptographicHash>
 
 // ---------------------------------------------------------------------------
 // .astn format constants (see AstNovel ASTN v2.0 specification)
 // ---------------------------------------------------------------------------
-// The .astn interop master secret is deliberately NOT stored in the
-// repository. It reaches the build through the ASTN_MASTER_SECRET
-// environment variable or a gitignored mastersecret.pri (see README), and
-// can be overridden at runtime through the same environment variable.
-// Note: the original HarmonyOS app embeds the same secret inside its
-// binary — treat this value as an interop identifier, not a
-// confidentiality boundary; the per-file random salt is what keeps
-// ciphertexts independent.
-static QByteArray astnMasterSecret()
+// Key generations. Generation 2 (what we write) derives its PBKDF2 password
+// as hex(SHA-256("REDACTED_GEN2_SEED")) — a public constant by decision;
+// the per-file random salt keeps ciphertexts independent. Generation 1 is
+// the secret embedded in the original HarmonyOS app: it is injected at
+// build time (gitignored mastersecret.pri or ASTN_MASTER_SECRET env; also
+// overridable at runtime through the same env var) and is ONLY used to
+// read legacy containers. Neither value lives in the repository.
+static QByteArray astnGen2Secret()
+{
+    return QCryptographicHash::hash(QByteArrayLiteral("REDACTED_GEN2_SEED"),
+                                    QCryptographicHash::Sha256).toHex();
+}
+
+static QByteArray astnLegacySecret()
 {
     const QByteArray env = qgetenv("ASTN_MASTER_SECRET");
     if (!env.isEmpty())
@@ -41,7 +47,7 @@ static QByteArray astnMasterSecret()
 #ifdef ASTN_MASTER_SECRET
     return QByteArray(ASTN_MASTER_SECRET);
 #else
-    return QByteArray();   // fail closed — caller refuses to derive a key
+    return QByteArray();   // fail closed — legacy containers become unreadable
 #endif
 }
 
@@ -73,9 +79,8 @@ static void appendUInt32BE(QByteArray &out, quint32 value)
     out.append(char(value & 0xFF));
 }
 
-static QByteArray astnDeriveKey(const QByteArray &salt)
+static QByteArray astnDeriveKey(const QByteArray &salt, const QByteArray &secret)
 {
-    const QByteArray secret = astnMasterSecret();
     unsigned char key[32];
     if (secret.isEmpty())
         return QByteArray();   // no secret configured — fail closed
@@ -160,6 +165,23 @@ static QByteArray astnDecryptChunk(const QByteArray &key, const QByteArray &chun
         return QByteArray();
     out.resize(total);
     return out;
+}
+
+// Resolve which generation encrypted a container: try the legacy secret
+// (original HarmonyOS app and old exports) first, then generation 2. GCM
+// authentication decides — a wrong generation fails the tag check. Returns
+// the working key, or empty when no generation authenticates.
+static QByteArray astnResolveReadKey(const QByteArray &salt, const QByteArray &indexChunk)
+{
+    const QByteArray legacy = astnDeriveKey(salt, astnLegacySecret());
+    if (!legacy.isEmpty() && !astnDecryptChunk(legacy, indexChunk).isEmpty())
+        return legacy;
+
+    const QByteArray gen2 = astnDeriveKey(salt, astnGen2Secret());
+    if (!gen2.isEmpty() && !astnDecryptChunk(gen2, indexChunk).isEmpty())
+        return gen2;
+
+    return QByteArray();
 }
 
 // Word counting per original AstNovel: CJK chars count 1 each,
@@ -686,11 +708,12 @@ QString AstnStore::importConflictBookId(const QString &path)
         return QString();
 
     const QByteArray salt = data.mid(4, ASTN_SALT_SIZE);
-    const QByteArray key = astnDeriveKey(salt);
-    if (key.isEmpty())
-        return QString();
     const quint32 indexLength = readUInt32BE(data, 20);
     if (indexLength == 0 || int(24 + indexLength + 4) > data.size())
+        return QString();
+    // Generation auto-detect: legacy (original app) first, then gen 2.
+    const QByteArray key = astnResolveReadKey(salt, data.mid(24, (int)indexLength));
+    if (key.isEmpty())
         return QString();
     const QByteArray indexJson = astnDecryptChunk(key, data.mid(24, (int)indexLength));
     if (indexJson.isEmpty())
@@ -1167,7 +1190,8 @@ QString AstnStore::exportBookToAstn(const QString &bookId, const QString &output
     QByteArray salt(ASTN_SALT_SIZE, 0);
     if (RAND_bytes((unsigned char *)salt.data(), ASTN_SALT_SIZE) != 1)
         return QString();
-    const QByteArray key = astnDeriveKey(salt);
+    // New containers are written with generation 2 only.
+    const QByteArray key = astnDeriveKey(salt, astnGen2Secret());
     if (key.isEmpty())
         return QString();
 
@@ -1257,11 +1281,12 @@ QString AstnStore::importBookFromAstn(const QString &path, const QString &mode)
         return QString();
 
     const QByteArray salt = data.mid(4, ASTN_SALT_SIZE);
-    const QByteArray key = astnDeriveKey(salt);
-    if (key.isEmpty())
-        return QString();
     const quint32 indexLength = readUInt32BE(data, 20);
     if (indexLength == 0 || int(24 + indexLength + 4) > data.size())
+        return QString();
+    // Generation auto-detect: legacy (original app) first, then gen 2.
+    const QByteArray key = astnResolveReadKey(salt, data.mid(24, (int)indexLength));
+    if (key.isEmpty())
         return QString();
     const QByteArray indexJson = astnDecryptChunk(key, data.mid(24, (int)indexLength));
     if (indexJson.isEmpty())
