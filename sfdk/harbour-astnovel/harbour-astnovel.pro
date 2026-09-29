@@ -54,6 +54,7 @@ OTHER_FILES += \
     qml/styles/qmldir \
     qml/styles/AstnStyle.qml \
     rpm/harbour-astnovel.spec \
+    docs/ASTN_FORMAT.md \
     harbour-astnovel.desktop
 
 target.path = /usr/bin
