@@ -87,16 +87,23 @@ sfdk -c target=SailfishOS-5.1.0.11-aarch64 build   # 64-bit devices
 
 When switching targets, remove local build artefacts first (`Makefile*`, `*.o`, `moc_*.cpp`, the `harbour-astnovel` binary) — otherwise qmake may reuse objects compiled for the previous architecture.
 
-### The `.astn` master secret
+### The `.astn` master secrets
 
-The `.astn` interop master secret is **not stored in this repository**. To build, supply it out-of-band:
+The `.astn` master secrets are **not stored in this repository**; both are supplied out-of-band and reach the build through a gitignored `mastersecret.pri` or environment variables:
 
-- create `sfdk/harbour-astnovel/mastersecret.pri` (gitignored) containing `DEFINES += ASTN_MASTER_SECRET=\"<the interop secret>\"`, or
-- export `ASTN_MASTER_SECRET` in an environment that reaches qmake.
+- `ASTN_MASTER_SECRET` — generation 1: the legacy interop secret (reads legacy containers only)
+- `ASTN_GEN2_SECRET` — generation 2: the hex digest this port writes
 
-At runtime the legacy value can also be provided through the `ASTN_MASTER_SECRET` environment variable; with no legacy secret configured the app fails closed for *legacy* containers only (generation-2 containers still read and write normally).
+Create `sfdk/harbour-astnovel/mastersecret.pri` (gitignored):
 
-> **Key generations** — since this port writes generation-2 containers, the legacy secret embedded in the original HarmonyOS app is only ever used to *read* old files: reads try legacy first, then generation 2, with AES-GCM authentication deciding. The generation-2 password is `hex(SHA-256("REDACTED_GEN2_SEED"))`, a public constant by design; content protection rests on the per-file random salt and AES-256-GCM authentication, not on the secret staying private. New exports do not open in the original app.
+```qmake
+DEFINES += ASTN_MASTER_SECRET=\"<legacy interop secret>\"
+DEFINES += ASTN_GEN2_SECRET=\"<generation-2 hex digest>\"
+```
+
+or export both variables in an environment that reaches qmake. At runtime the same-named environment variables override the built-in values; with a secret missing the app fails closed for that generation only (missing gen-2 secret blocks writing, missing legacy secret blocks legacy reads — generation-2 containers still read normally).
+
+> **Key generations** — reads try the legacy secret first, then generation 2, with AES-GCM authentication deciding which generation encrypted a container. Legacy containers therefore stay readable, while new exports are written with the generation-2 digest and do **not** open in the original HarmonyOS app (it only knows the legacy secret). Content protection rests on the per-file random salt and AES-256-GCM authentication; treat both secrets as interop configuration, not as a confidentiality boundary.
 
 ## Support
 
@@ -202,14 +209,21 @@ sfdk -c target=SailfishOS-5.1.0.11-aarch64 build   # 64 位元裝置
 
 ### `.astn` 主密鑰
 
-`.astn` 互通主密鑰**不儲存於本倉庫**。建置時請從外部提供：
+`.astn` 主密鑰**不儲存於本倉庫**，兩代密鑰皆從外部提供，經 gitignored 的 `mastersecret.pri` 或環境變數抵達建置：
 
-- 建立 `sfdk/harbour-astnovel/mastersecret.pri`（已 gitignore），內容為 `DEFINES += ASTN_MASTER_SECRET=\"<互通密鑰>\"`；或
-- 在能傳遞到 qmake 的環境中匯出 `ASTN_MASTER_SECRET`。
+- `ASTN_MASTER_SECRET` — 第一代：舊互通密鑰（僅用於讀取舊容器）
+- `ASTN_GEN2_SECRET` — 第二代：本埠寫入所用的十六進位摘要
 
-執行期亦可透過同名環境變數 `ASTN_MASTER_SECRET` 提供舊密鑰；未配置時僅對*舊版容器*採失敗關閉策略（第二代容器仍可正常讀寫）。
+建立 `sfdk/harbour-astnovel/mastersecret.pri`（已 gitignore）：
 
-> **密鑰世代** — 本埠匯出第二代容器，原版 HarmonyOS 應用內嵌的舊密鑰僅用於*讀取*舊檔：讀取時先嘗試舊密鑰、再嘗試第二代，由 AES-GCM 認證自動判定。第二代口令為 `hex(SHA-256("REDACTED_GEN2_SEED"))`，屬刻意公開的常量；內容保護依賴每檔案隨機鹽與 AES-256-GCM 認證，而非密鑰保密。新匯出的檔案無法在原版應用中開啟。
+```qmake
+DEFINES += ASTN_MASTER_SECRET=\"<舊互通密鑰>\"
+DEFINES += ASTN_GEN2_SECRET=\"<第二代十六進位摘要>\"
+```
+
+或在能傳遞到 qmake 的環境中匯出這兩個變數。執行期同名環境變數可覆蓋內建值；缺少任一密鑰時，應用程式僅對該世代失敗關閉（缺第二代密鑰會擋住寫入，缺舊密鑰會擋住舊容器讀取——第二代容器仍可正常讀取）。
+
+> **密鑰世代** — 讀取時先嘗試舊密鑰、再嘗試第二代，由 AES-GCM 認證判定容器所屬世代。舊容器因此保持可讀，而新匯出以第二代摘要寫入，**無法**在原版 HarmonyOS 應用中開啟（它只認得舊密鑰）。內容保護依賴每檔案隨機鹽與 AES-256-GCM 認證；請將兩個密鑰視為互通設定，而非保密邊界。
 
 ## 支援
 

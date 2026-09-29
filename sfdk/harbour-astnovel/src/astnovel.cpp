@@ -21,22 +21,31 @@
 
 #include <openssl/evp.h>
 #include <openssl/rand.h>
-#include <QCryptographicHash>
 
 // ---------------------------------------------------------------------------
 // .astn format constants (see AstNovel ASTN v2.0 specification)
 // ---------------------------------------------------------------------------
-// Key generations. Generation 2 (what we write) derives its PBKDF2 password
-// as hex(SHA-256("REDACTED_GEN2_SEED")) — a public constant by decision;
-// the per-file random salt keeps ciphertexts independent. Generation 1 is
-// the secret embedded in the original HarmonyOS app: it is injected at
-// build time (gitignored mastersecret.pri or ASTN_MASTER_SECRET env; also
-// overridable at runtime through the same env var) and is ONLY used to
-// read legacy containers. Neither value lives in the repository.
+// Key generations — NEITHER secret lives in the repository. Both are
+// injected at build time (gitignored mastersecret.pri, or the ASTN_*_SECRET
+// environment variables when they reach qmake) and can be overridden at
+// runtime through the same-named environment variables:
+//   ASTN_MASTER_SECRET  — generation 1: the secret embedded in the original
+//                         HarmonyOS app; used ONLY to read legacy containers.
+//   ASTN_GEN2_SECRET    — generation 2 (hex digest, chosen out-of-band):
+//                         what this port WRITES.
+// Reads try generation 1 first, then generation 2; AES-GCM authentication
+// decides. With no legacy secret, legacy containers fail closed; with no
+// generation-2 secret, writing fails closed.
 static QByteArray astnGen2Secret()
 {
-    return QCryptographicHash::hash(QByteArrayLiteral("REDACTED_GEN2_SEED"),
-                                    QCryptographicHash::Sha256).toHex();
+    const QByteArray env = qgetenv("ASTN_GEN2_SECRET");
+    if (!env.isEmpty())
+        return env;
+#ifdef ASTN_GEN2_SECRET
+    return QByteArray(ASTN_GEN2_SECRET);
+#else
+    return QByteArray();   // fail closed — writing refuses to derive a key
+#endif
 }
 
 static QByteArray astnLegacySecret()
