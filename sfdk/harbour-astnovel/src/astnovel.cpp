@@ -25,8 +25,27 @@
 // ---------------------------------------------------------------------------
 // .astn format constants (see AstNovel ASTN v2.0 specification)
 // ---------------------------------------------------------------------------
-static const char *ASTN_MASTER_SECRET = "REDACTED_MASTER_SECRET";
-static const quint32 ASTN_MAGIC_HEADER = 0x4153544EU;  // "ASTN" big-endian
+// The .astn interop master secret is deliberately NOT stored in the
+// repository. It reaches the build through the ASTN_MASTER_SECRET
+// environment variable or a gitignored mastersecret.pri (see README), and
+// can be overridden at runtime through the same environment variable.
+// Note: the original HarmonyOS app embeds the same secret inside its
+// binary — treat this value as an interop identifier, not a
+// confidentiality boundary; the per-file random salt is what keeps
+// ciphertexts independent.
+static QByteArray astnMasterSecret()
+{
+    const QByteArray env = qgetenv("ASTN_MASTER_SECRET");
+    if (!env.isEmpty())
+        return env;
+#ifdef ASTN_MASTER_SECRET
+    return QByteArray(ASTN_MASTER_SECRET);
+#else
+    return QByteArray();   // fail closed — caller refuses to derive a key
+#endif
+}
+
+static quint32 ASTN_MAGIC_HEADER = 0x4153544EU;  // "ASTN" big-endian
 static const quint32 ASTN_MAGIC_FOOTER = 0x4F56454CU;  // "OVEL" big-endian
 static const int ASTN_SALT_SIZE = 16;
 static const int ASTN_NONCE_SIZE = 12;
@@ -56,8 +75,11 @@ static void appendUInt32BE(QByteArray &out, quint32 value)
 
 static QByteArray astnDeriveKey(const QByteArray &salt)
 {
+    const QByteArray secret = astnMasterSecret();
     unsigned char key[32];
-    if (PKCS5_PBKDF2_HMAC(ASTN_MASTER_SECRET, (int)qstrlen(ASTN_MASTER_SECRET),
+    if (secret.isEmpty())
+        return QByteArray();   // no secret configured — fail closed
+    if (PKCS5_PBKDF2_HMAC(secret.constData(), secret.size(),
                           (const unsigned char *)salt.constData(), salt.size(),
                           ASTN_KDF_ITERATIONS, EVP_sha256(), 32, key) != 1)
         return QByteArray();

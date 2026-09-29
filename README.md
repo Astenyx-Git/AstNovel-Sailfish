@@ -87,6 +87,17 @@ sfdk -c target=SailfishOS-5.1.0.11-aarch64 build   # 64-bit devices
 
 When switching targets, remove local build artefacts first (`Makefile*`, `*.o`, `moc_*.cpp`, the `harbour-astnovel` binary) — otherwise qmake may reuse objects compiled for the previous architecture.
 
+### The `.astn` master secret
+
+The `.astn` interop master secret is **not stored in this repository**. To build, supply it out-of-band:
+
+- create `sfdk/harbour-astnovel/mastersecret.pri` (gitignored) containing `DEFINES += ASTN_MASTER_SECRET=\"<the interop secret>\"`, or
+- export `ASTN_MASTER_SECRET` in an environment that reaches qmake.
+
+At runtime the value can also be provided through the `ASTN_MASTER_SECRET` environment variable; with no secret configured the app fails closed (`.astn` import/export refuse to derive a key).
+
+> **Security note** — the original HarmonyOS app embeds the same secret inside its binary; that is precisely what makes `.astn` files interchangeable between the two apps. The secret therefore works as an interop identifier rather than a confidentiality boundary. Content protection rests on the per-file random salt and AES-256-GCM authentication, not on the secret staying private.
+
 ## Support
 
 - Bug reports and questions: [GitHub Issues](https://github.com/Astenyx-Git/AstNovel-Sailfish/issues)
@@ -188,6 +199,17 @@ sfdk -c target=SailfishOS-5.1.0.11-aarch64 build   # 64 位元裝置
 ```
 
 切換目標時請先清除本機建置產物（`Makefile*`、`*.o`、`moc_*.cpp`、`harbour-astnovel` 執行檔），否則 qmake 可能重用上一個架構編譯的目標檔。
+
+### `.astn` 主密鑰
+
+`.astn` 互通主密鑰**不儲存於本倉庫**。建置時請從外部提供：
+
+- 建立 `sfdk/harbour-astnovel/mastersecret.pri`（已 gitignore），內容為 `DEFINES += ASTN_MASTER_SECRET=\"<互通密鑰>\"`；或
+- 在能傳遞到 qmake 的環境中匯出 `ASTN_MASTER_SECRET`。
+
+執行期亦可透過同名環境變數 `ASTN_MASTER_SECRET` 提供；未配置任何密鑰時應用程式採失敗關閉策略（`.astn` 匯入匯出拒絕衍生金鑰）。
+
+> **安全說明** — 原版 HarmonyOS 應用程式其二進位檔內嵌同一密鑰，這正是 `.astn` 檔案得以在兩個應用間互通的原因。因此該密鑰實為互通識別碼，而非保密邊界；內容保護依賴每檔案隨機鹽與 AES-256-GCM 認證，而非密鑰本身保密。
 
 ## 支援
 

@@ -4,6 +4,18 @@ QT += quick
 CONFIG += c++11 link_pkgconfig
 PKGCONFIG += sailfishapp openssl
 
+# .astn interop master secret — never stored in the repository.
+# Preferred: create a local (gitignored) mastersecret.pri next to this file
+# containing:  DEFINES += ASTN_MASTER_SECRET=\"<the interop secret>\"
+# Alternative: export ASTN_MASTER_SECRET in an environment that reaches
+# qmake (e.g. a shell on the Build Engine); see README.
+ASTN_MASTER_SECRET_ENV = $$(ASTN_MASTER_SECRET)
+!isEmpty(ASTN_MASTER_SECRET_ENV) {
+    DEFINES += ASTN_MASTER_SECRET=\\\"$$ASTN_MASTER_SECRET_ENV\\\"
+} else {
+    exists(mastersecret.pri) { include(mastersecret.pri) }
+}
+
 SOURCES += \
     src/main.cpp \
     src/astnovel.cpp
